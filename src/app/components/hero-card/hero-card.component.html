@@ -1,0 +1,10 @@
+<div class="card animated fadeIn fast border border-primary">
+    <img [src]="hero.img" class="card-img-top img-fluid" [alt]="hero.name">
+    <div class="card-body">
+        <h5 class="card-title">{{ hero.name }}</h5>
+        <p class="card-text">{{ hero.bio }}</p>
+        <p class="card-text"><small class="text-muted">{{ hero.firstAppearance }}</small></p>
+        <button (click)="heroDetail();" class="btn btn-outline-primary btn-block">Details</button>
+        <!--  <a routerLink="/hero/{{ i }}" class="btn btn-outline-primary btn-block">Details</a> -->
+    </div>
+</div>

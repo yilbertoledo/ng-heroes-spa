@@ -11,6 +11,9 @@ export class HeroesService {
   constructor() {
     console.log('HeroSvc ready');
     this.heroes = HEROES;
+    for (const hero of this.heroes) {
+      hero.index = this.heroes.indexOf(hero);
+    }
   }
 
   getHeroes(): Hero[] {
@@ -22,7 +25,7 @@ export class HeroesService {
       const match: Hero[] = [];
       filter = filter.toLowerCase();
       this.heroes.forEach((hero) => {
-        if (hero.nombre.toLowerCase().includes(filter.toLowerCase())) {
+        if (hero.name.toLowerCase().includes(filter.toLowerCase())) {
           match.push(hero);
         }
       });

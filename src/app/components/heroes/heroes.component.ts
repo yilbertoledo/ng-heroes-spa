@@ -37,9 +37,11 @@ export class HeroesComponent implements OnInit {
     } else {
       this.heroes = this.heroesService.getHeroesByFilter(this.qSearch);
     }
+    console.log(this.heroes);
   }
 
-  heroDetail(idx: number) {
+  heroDetail(idx: number): void {
+    console.log(`Heroes.heroDetail(${idx})`);
     this.router.navigate(['/hero', idx]);
   }
 }

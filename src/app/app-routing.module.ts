@@ -13,6 +13,7 @@ import { HeroComponent } from './components/hero/hero.component';
 // Services
 
 const ROUTES: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'heroes', component: HeroesComponent },

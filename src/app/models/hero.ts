@@ -1,9 +1,10 @@
 export class Hero {
   constructor(
-    public nombre: string,
+    public name: string,
     public bio: string,
     public img: string,
-    public aparicion: string,
-    public casa: string
+    public firstAppearance: string,
+    public publisher: string,
+    public index?: number
   ) {}
 }

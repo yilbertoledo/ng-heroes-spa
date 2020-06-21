@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HeroesService } from 'src/app/services/heroes.service';
 import { Hero } from 'src/app/models/hero';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-hero',
@@ -13,7 +14,8 @@ export class HeroComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private heroService: HeroesService
+    private heroService: HeroesService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -22,8 +24,12 @@ export class HeroComponent implements OnInit {
       const selectedHero: Hero = this.heroService.getHero(params.id);
       if (selectedHero) {
         this.hero = selectedHero;
-        console.log(`Selected hero: ${this.hero.nombre}`);
+        console.log(`Selected hero: ${this.hero.name}`);
       }
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
