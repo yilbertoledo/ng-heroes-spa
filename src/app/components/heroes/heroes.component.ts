@@ -11,7 +11,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class HeroesComponent implements OnInit {
   heroes: Hero[];
 
-  public qSearch = '';
+  public qSearch: string = null;
 
   constructor(
     private heroesService: HeroesService,
@@ -21,22 +21,22 @@ export class HeroesComponent implements OnInit {
     console.log('heroes constructor');
   }
 
+  ngOnInit(): void {
+    this.activatedRoute.queryParamMap.subscribe((paramMap: ParamMap) => {
+      const search = paramMap.get('search');
+      if (search !== this.qSearch) {
+        this.qSearch = search;
+      }
+      this.loadHeroes();
+    });
+  }
+
   loadHeroes(): void {
     if (!this.qSearch) {
       this.heroes = this.heroesService.getHeroes();
     } else {
       this.heroes = this.heroesService.getHeroesByFilter(this.qSearch);
     }
-  }
-
-  ngOnInit(): void {
-    this.activatedRoute.queryParamMap.subscribe((paramMap: ParamMap) => {
-      const search = paramMap.get('search');
-      if (search !== this.qSearch) {
-        this.qSearch = search;
-        this.loadHeroes();
-      }
-    });
   }
 
   heroDetail(idx: number) {
