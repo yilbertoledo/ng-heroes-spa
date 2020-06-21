@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroesService } from 'src/app/services/heroes.service';
 import { Hero } from 'src/app/models/hero';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-heroes',
@@ -11,11 +11,32 @@ import { Router } from '@angular/router';
 export class HeroesComponent implements OnInit {
   heroes: Hero[];
 
-  constructor(private heroesService: HeroesService, private router: Router) {}
+  public qSearch = '';
+
+  constructor(
+    private heroesService: HeroesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    console.log('heroes constructor');
+  }
+
+  loadHeroes(): void {
+    if (!this.qSearch) {
+      this.heroes = this.heroesService.getHeroes();
+    } else {
+      this.heroes = this.heroesService.getHeroesByFilter(this.qSearch);
+    }
+  }
 
   ngOnInit(): void {
-    this.heroes = this.heroesService.getHeroes();
-    console.log(this.heroes);
+    this.activatedRoute.queryParamMap.subscribe((paramMap: ParamMap) => {
+      const search = paramMap.get('search');
+      if (search !== this.qSearch) {
+        this.qSearch = search;
+        this.loadHeroes();
+      }
+    });
   }
 
   heroDetail(idx: number) {
